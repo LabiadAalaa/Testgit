@@ -1,1 +1,46 @@
-<p>reserve works!</p>
+<div *ngIf="!isScheduleOk">
+    <form [formGroup]="reservationForm" (submit)="isSchedule()">
+        <mat-form-field>
+            <mat-label>Choisissez une date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year" [startAt]="date"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Choisissez une Heure de réservation</mat-label>
+            <mat-select formControlName= "time">
+                <mat-option *ngFor="let to of timeOptions" [value]="to" >
+                    {{to}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Choisissez le nombre de personnes</mat-label>
+            <mat-select formControlName="people">
+                <mat-option *ngFor="let po of peopleOptions" [value]="po" >
+                    {{po}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-button type="submit">Valider</button>
+    </form>
+</div>
+
+<div *ngIf="isScheduleOk">
+    <form #f="ngForm" (submit)="finalizeReservation(f)">
+        <mat-form-field>
+            <input matInput type="text" name="firstName" [(ngModel)]="client.firstName" placeholder="Prénom">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" name="lastName" [(ngModel)]="client.lastName" placeholder="Nom">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" name="email" [(ngModel)]="client.email" placeholder="Email">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" name="phone" [(ngModel)]="client.phone" placeholder="N° téléphone">
+        </mat-form-field>
+        <button mat-button type="submit">réserver</button>
+    </form>
+</div>
+

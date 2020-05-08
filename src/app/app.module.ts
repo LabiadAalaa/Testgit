@@ -22,15 +22,26 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { DishTableComponent } from './dish-table/dish-table.component';
 import { MatTableModule } from '@angular/material/table';
+import {
+   MatDatepickerModule,
+   MatFormFieldModule,
+   MatNativeDateModule,
+  MatInputModule,
+  MAT_DATE_LOCALE,
+  MatSelectModule} from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent}, // localHost:4200
   {path: 'Carte', component : CarteComponent},  // localHost:4200/Carte
   {path: 'Reserve', component : ReserveComponent}, // localHost:4200/Reserve
-  {path : 'Contact', component : ContactComponent} // localHost:4200/Contact
-]
+  {path : 'Contact', component : ContactComponent}, // localHost:4200/Contact
+  {path : 'Schedule', component : ScheduleComponent}  // localHost:4200/Schedule
+];
 
 @NgModule({
   declarations: [
@@ -41,10 +52,16 @@ const routes: Routes = [
     ReserveComponent,
     ContactComponent,
     MainDashComponent,
-    DishTableComponent
+    DishTableComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -53,15 +70,18 @@ const routes: Routes = [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatDatepickerModule,
     MatCardModule,
     RouterModule.forRoot(routes),
     MatGridListModule,
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
+    MatSelectModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE , useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

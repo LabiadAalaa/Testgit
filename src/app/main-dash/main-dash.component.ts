@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Food } from './../models/food.interface';
+import { QuickLunchService } from './../services/quick-lunch.service';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
@@ -7,27 +9,35 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   templateUrl: './main-dash.component.html',
   styleUrls: ['./main-dash.component.scss']
 })
-export class MainDashComponent {
+export class MainDashComponent implements OnInit {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'A la carte', cols: 1, rows: 1 },
-          { title: 'Plat', cols: 1, rows: 1 },
-          { title: 'Crepe', cols: 1, rows: 1 },
-          { title: 'Plat chinoi', cols: 1, rows: 1 }
+          { title: 'burgers', cols: 1, rows: 1, id: 'brg' },
+          { title: 'galettes', cols: 1, rows: 1, id: 'glt' },
+          { title: 'Pizzas', cols: 1, rows: 1, id: 'pzz' }
         ];
       }
 
       return [
-        { title: 'A la carte', cols: 2, rows: 1 },
-          { title: 'Plat', cols: 2, rows: 1 },
-          { title: 'Crepe', cols: 2, rows: 1 },
-          { title: 'Plat chinoi', cols: 2, rows: 1 }
+          { title: 'burgers', cols: 2, rows: 1, id: 'brg' },
+          { title: 'galettes', cols: 2, rows: 1, id: 'glt' },
+          { title: 'Pizzas', cols: 2, rows: 1, id: 'pzz' }
       ];
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  burgers: Food[];
+  pizzas: Food[];
+  galettes: Food[];
+
+  constructor(private breakpointObserver: BreakpointObserver, private qls: QuickLunchService) {}
+
+  ngOnInit() {
+    this.burgers = this.qls.getBurgers();
+    this.pizzas = this.qls.getPizza();
+    this.galettes = this.qls.getGalettes();
+  }
 }

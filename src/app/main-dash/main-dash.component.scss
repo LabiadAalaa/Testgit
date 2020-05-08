@@ -17,5 +17,11 @@
 }
 
 .dashboard-card-content {
-  text-align: center;
+  text-align: initial;
+}
+
+
+.price {
+  display: flex;
+  justify-content: flex-end;
 }
