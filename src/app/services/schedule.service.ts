@@ -18,7 +18,7 @@ export class ScheduleService {
               .get<Schedule>('assets/schedules.json')
               .pipe(
                 tap(res => console.log('res', res)),
-                map(res => res.Events.filter(x => x.title.indexOf(term) > -1)),
+                map(res => res.events.filter(x => x.title.indexOf(term) > -1)),
                 tap( x => console.log('filterEvents', x))
               );
   }
